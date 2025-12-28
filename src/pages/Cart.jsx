@@ -1,4 +1,5 @@
 import React from "react";
+import API_BASE_URL from "../utils/api"; 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
@@ -13,7 +14,7 @@ export default function Cart() {
   const removeCartItem = async (productId) => {
     try {
       const userId = localStorage.getItem("userID");
-      await axios.delete(`http://localhost:5000/RemoveCart`, {
+      await axios.delete(`${API_BASE_URL}/RemoveCart`, {
         data: { userId, productId },
       });
     } catch (error) {
@@ -24,13 +25,13 @@ export default function Cart() {
     try {
       const userId = localStorage.getItem("userID");
       const res = await axios.get(
-        `http://localhost:5000/GetUserCart/${localStorage.getItem("userID")}`
+        `${API_BASE_URL}/GetUserCart/${localStorage.getItem("userID")}`
       );
       let quantity = res.data.cart.items.find(
         (item) => item.product._id === productId
       ).quantity;
       quantity += 1;
-      await axios.put(`http://localhost:5000/UpdateCart`, {
+      await axios.put(`${API_BASE_URL}/UpdateCart`, {
         userId,
         productId,
         quantity,
@@ -43,14 +44,14 @@ export default function Cart() {
     try {
       const userId = localStorage.getItem("userID");
       const res = await axios.get(
-        `http://localhost:5000/GetUserCart/${localStorage.getItem("userID")}`
+        `${API_BASE_URL}/GetUserCart/${localStorage.getItem("userID")}`
       );
       let quantity = res.data.cart.items.find(
         (item) => item.product._id === productId
       ).quantity;
       quantity -= 1;
       if(quantity!==0){
-        await axios.put(`http://localhost:5000/UpdateCart`, {
+        await axios.put(`${API_BASE_URL}/UpdateCart`, {
           userId,
           productId,
           quantity,

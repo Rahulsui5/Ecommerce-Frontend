@@ -7,7 +7,7 @@ const loadRazorpayScript = () => {
     document.body.appendChild(script);
   });
 };
-
+import API_BASE_URL from "../utils/api"; 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Swal from "sweetalert2";
@@ -30,7 +30,7 @@ export default function Checkout() {
   const fetchUser = async () => {
     try {
       const userId = localStorage.getItem("userID");
-      const res = await axios.post("http://localhost:5000/SingleUser", {
+      const res = await axios.post(`${API_BASE_URL}/SingleUser`, {
         userId,
       });
       setShippingAddress(res.data.user.shippingAddress);
@@ -54,14 +54,14 @@ export default function Checkout() {
       pinCode: formData.pinCode,
       userId: userId,
     };
-    await axios.put(`http://localhost:5000/AddAddress`, shippingAddress);
+    await axios.put(`${API_BASE_URL}/AddAddress`, shippingAddress);
     setIsNewShippingAddress(!isNewShippingAddress);
     toast.success("Address added");
   };
   const deleteAddress = async (id) => {
     try {
       const userId = localStorage.getItem("userID");
-      await axios.delete(`http://localhost:5000/DeleteAddress`, {
+      await axios.delete(`${API_BASE_URL}/DeleteAddress`, {
         data: { id, userId },
       });
       toast.info("Address Deleted");
@@ -95,7 +95,7 @@ export default function Checkout() {
   //     };
   //     const paymentMethod = formData.paymentMethod || "card";
   //     const userId = localStorage.getItem("userID");
-  //     await axios.post("http://localhost:5000/PlaceOrder",{
+  //     await axios.post("${API_BASE_URL}/PlaceOrder",{
   //       userId,
   //       shippingAddress,
   //       paymentMethod,
@@ -144,7 +144,7 @@ export default function Checkout() {
 
       // 🟢 If user selects COD
       if (paymentMethod === "cod") {
-        const { data } = await axios.post("http://localhost:5000/PlaceOrder", {
+        const { data } = await axios.post(`${API_BASE_URL}/PlaceOrder`, {
           userId,
           shippingAddress,
           paymentMethod: "cod",
@@ -163,7 +163,7 @@ export default function Checkout() {
 
       // 🟢 If user selects Online Payment (Razorpay)
       const { data: orderResponse } = await axios.post(
-        "http://localhost:5000/PlaceOrder",
+        `${API_BASE_URL}/PlaceOrder`,
         {
           userId,
           shippingAddress,
@@ -182,7 +182,7 @@ export default function Checkout() {
           try {
             // verify payment on backend
             const verifyRes = await axios.post(
-              "http://localhost:5000/Verify-payment",
+              `${API_BASE_URL}/Verify-payment`,
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,

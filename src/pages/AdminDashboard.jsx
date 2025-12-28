@@ -12,6 +12,7 @@ import {
   Home,
   ShoppingBag,
 } from "lucide-react";
+import API_BASE_URL from "../utils/api"; 
 import ProductModal from "./adminPages/ProductModal.jsx";
 import { useNavigate } from "react-router-dom";
 import { useContextCart } from "@/context/CardContext.jsx";
@@ -131,7 +132,7 @@ export default function AdminDashboard() {
   };
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/DeleteProduct/${id}`);
+      await axios.delete(`${API_BASE_URL}/DeleteProduct/${id}`);
       window.location.reload();
     } catch (error) {
       console.log(error);

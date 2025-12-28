@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import API_BASE_URL from "../utils/api"; 
 import { Card, CardContent } from "@/components/ui/card";
 import { ShoppingCart,ChevronRight  } from "lucide-react";
 import React from "react";
@@ -13,7 +14,7 @@ const Cards = ({products,categoryname}) => {
      try {
       const productId=product?._id;
           const userId=localStorage.getItem("userID")
-         const res= await axios.post(`http://localhost:5000/AddToCart`,{userId, productId});
+         const res= await axios.post(`${API_BASE_URL}/AddToCart`,{userId, productId});
          toast(res.data.message)
         } catch (error) {
           console.error("Error adding to cart:", error);

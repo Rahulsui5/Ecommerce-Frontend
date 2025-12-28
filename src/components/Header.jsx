@@ -37,6 +37,7 @@ import { useContextCart } from "@/context/CardContext";
 import { UseAuthContext } from "@/context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import API_BASE_URL from "../utils/api.js"
 export default function Header() {
   const { obj } = useContextCart();
   const { isLogin, setIsLogin } = UseAuthContext();
@@ -116,7 +117,7 @@ export default function Header() {
   };
   const getUser = async () => {
     try {
-      const resUsers = await axios.get(`http://localhost:5000/AllUser`);
+      const resUsers = await axios.get(`${API_BASE_URL}/AllUser`);
       const user = resUsers.data.user.find((us) => us.role === "admin");
       if (user._id===localStorage.getItem("userID")) {
         obj.setIsAdmin(true);

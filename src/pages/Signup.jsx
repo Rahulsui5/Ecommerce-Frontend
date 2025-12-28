@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { User, Mail, Lock, Store } from "lucide-react";
 import glass from "../assets/login-signup-imgs/glass.png";
 import { Link, useNavigate } from "react-router-dom";
+import API_BASE_URL from "../utils/api"; 
 import {
   Select,
   SelectContent,
@@ -28,7 +29,7 @@ export default function Signup() {
     e.preventDefault();
     try {
       const signupData = await axios.post(
-        `http://localhost:5000/RegisterUser`,
+        `${API_BASE_URL}/RegisterUser`,
         form
       );
       if (signupData) {

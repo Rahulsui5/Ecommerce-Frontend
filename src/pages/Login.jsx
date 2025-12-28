@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Mail, Lock, LogIn } from "lucide-react";
 import { motion } from "framer-motion";
+import API_BASE_URL from "../utils/api"; 
 import trolley from '../assets/login-signup-imgs/trolley.png'
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -15,7 +16,7 @@ export default function Login() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-        const loginData=  await axios.post(`http://localhost:5000/LoginUser`,{email,password})
+        const loginData=  await axios.post(`${API_BASE_URL}/LoginUser`,{email,password})
         if(loginData){
           setIsLogin(true)
           toast.success('Login successfully!')

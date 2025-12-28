@@ -1,4 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
+import API_BASE_URL from "../utils/api.js";
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 const Context = createContext();
@@ -7,7 +8,7 @@ export const CardContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
     try {
-      const products = await axios.get("http://localhost:5000/GetProduct");
+      const products = await axios.get(`${API_BASE_URL}/GetProduct`);
       if (products) {
         setProducts(products.data.products);
       }
@@ -29,7 +30,7 @@ export const CardContextProvider = ({ children }) => {
       const userId = localStorage.getItem("userID");
       if (userId) {
         const res = await axios.get(
-          `http://localhost:5000/GetUserCart/${userId}`
+          `${API_BASE_URL}/GetUserCart/${userId}`
         );
         setCartItems(res.data.cart.items);
       }

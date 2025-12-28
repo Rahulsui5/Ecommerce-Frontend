@@ -7,6 +7,7 @@ import Cards from "./Cards";
 import axios from "axios";
 import { UseAuthContext } from "@/context/AuthContext";
 import NotFound from "./NotFound";
+import API_BASE_URL from "../utils/api"; 
 export default function ProductDetails() {
   const { id } = useParams();
   const { obj } = useContextCart();
@@ -21,7 +22,7 @@ export default function ProductDetails() {
   const getSingleProduct = async (Pid) => {
     try {
       const singleProduct = await axios.get(
-        `http://localhost:5000/GetSingleProduct/${Pid}`
+        `${API_BASE_URL}/GetSingleProduct/${Pid}`
       );
       setProduct(singleProduct.data.product);
     } catch (error) {
@@ -60,7 +61,7 @@ export default function ProductDetails() {
       try {
        const productId=product?._id;
            const userId=localStorage.getItem("userID")
-           await axios.post(`http://localhost:5000/AddToCart`,{userId, productId});
+           await axios.post(`${API_BASE_URL}/AddToCart`,{userId, productId});
          } catch (error) {
            console.error("Error adding to cart:", error);
          }

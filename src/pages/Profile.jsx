@@ -8,7 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import { UseAuthContext } from "@/context/AuthContext";
 import { useContextCart } from "@/context/CardContext";
-
+import API_BASE_URL from "../utils/api"; 
 export default function Profile() {
   const { setIsLogin } = UseAuthContext();
   const { obj } = useContextCart();
@@ -24,7 +24,7 @@ export default function Profile() {
   const fetchUser = async () => {
     try {
       const userId = localStorage.getItem("userID");
-      const res = await axios.post("http://localhost:5000/SingleUser", {
+      const res = await axios.post(`${API_BASE_URL}/SingleUser`, {
         userId,
       });
       setUser(res.data.user);
@@ -36,7 +36,7 @@ export default function Profile() {
   const fetchOrders = async () => {
     try {
       const userId = localStorage.getItem("userID");
-      const res = await axios.post("http://localhost:5000/GetUserOrder", {
+      const res = await axios.post(`${API_BASE_URL}/GetUserOrder`, {
         userId,
       });
       setOrders(res.data.orders);

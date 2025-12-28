@@ -6,7 +6,7 @@ import { Package, MapPin, Calendar, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-
+import API_BASE_URL from "../utils/api"; 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ export default function Orders() {
   const fetchOrders = async () => {
     try {
       const userId = localStorage.getItem("userID");
-      const res = await axios.post("http://localhost:5000/GetUserOrder", {
+      const res = await axios.post(`${API_BASE_URL}/GetUserOrder`, {
         userId,
       });
       setOrders(res.data.orders);
@@ -51,7 +51,7 @@ export default function Orders() {
   };
   const cancelOrder = async (orderId) => {
     try {
-      await axios.put("http://localhost:5000/CancelOrder", { orderId });
+      await axios.put(`${API_BASE_URL}/CancelOrder`, { orderId });
     } catch (error) {
       console.error("error:", error);
     }
