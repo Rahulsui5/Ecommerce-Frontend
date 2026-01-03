@@ -212,12 +212,7 @@ export default function Header() {
                     </Link>
                   </DropdownMenuItem>
                 )}
-                {/* <DropdownMenuItem asChild>
-                  <Link to="/admin">
-                    <UserLock />
-                    Admin
-                  </Link>
-                </DropdownMenuItem> */}
+              
               </div>
 
               {isLogin && (
